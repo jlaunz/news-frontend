@@ -1,0 +1,19 @@
+.articleCard {
+    margin-bottom: 50px;
+  }
+  
+  .articleCardTitle {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+  }
+  
+  .articleCardTitle a {
+    color: inherit;
+  }
+  
+  .articleCardDescription {
+    margin-top: 0;
+    margin-bottom: 12px;
+    opacity: 0.65;
+  }
+  
