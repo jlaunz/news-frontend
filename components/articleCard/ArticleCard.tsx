@@ -1,25 +1,58 @@
-import react from "react";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
 import Link from "next/link";
 import styles from "./ArticleCard.module.css";
 import { ArticleSummary } from "../../model/Article";
+import { getStandardImageURL } from "../../util/richTextImgUtil";
+import { Chip } from "@mui/material";
 
 export type ArticleCardProps = {
-  article: ArticleSummary;
+  articleSummary: ArticleSummary;
 };
-const ArticleCard = ({ article }: ArticleCardProps) => {
+const ArticleCard = ({ articleSummary }: ArticleCardProps) => {
   return (
-    <div className={styles.ArticleCard}>
-      <h3 className={styles.ArticleCardTitle}>
-        <Link href={`/${article.id}`}>
-          <a>{article.title}</a>
+    <Card sx={{ maxWidth: 500 }}>
+      <CardMedia
+        component="img"
+        height="140"
+        image={getStandardImageURL(articleSummary.images[0]).src}
+        alt="green iguana"
+      />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="div"
+          style={{ fontSize: "16px", lineHeight: 1.4 }}
+        >
+          {articleSummary.title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <span>Updated At: {articleSummary.date}</span>
+          <br></br>
+          <span>
+            {articleSummary.intro.substring(0, 80) +
+              (articleSummary.intro.length > 80 ? "..." : "")}
+          </span>
+        </Typography>
+      </CardContent>
+      <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
+        <Link href={`articles/${articleSummary.id}`}>
+          <Button size="small" variant="contained">
+            {" "}
+            Read
+          </Button>
         </Link>
-      </h3>
 
-      <p className={styles.ArticleCardDescription}>{article.date}</p>
-      <Link href={`/${article.id}`}>
-        <a> Read Article →</a>
-      </Link>
-    </div>
+        <Chip label={articleSummary.section} variant="outlined" />
+      </CardActions>
+    </Card>
   );
 };
 

@@ -1,0 +1,48 @@
+
+.article{
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.45;
+    padding: 0 50px;
+
+    font-size: 18px;
+    color: #0F1E54;
+    font-weight: 400;
+    font-family: "Stuff Sans", Arial, Helvetica, sans-serif;
+    
+}
+
+.articleAuthorDate{
+    margin-left: 0;
+    margin-right: 17px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    color: #b0bec5;
+}
+
+.articleContent{
+width: 100%;
+}
+
+.article h1{
+    font-size: 40px;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.article img{
+    margin: 0 auto;
+    max-width: 90%;
+    display: block;
+}
+
+.article video{
+    margin: 0 auto;
+    width: 80%;
+    display: block;
+}

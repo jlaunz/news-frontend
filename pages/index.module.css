@@ -1,6 +1,6 @@
 .container {
   padding: 0 20px;
-  max-width: 700px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -44,4 +44,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.article{
+  width: 30%;
+  margin: 20px 0;
 }
