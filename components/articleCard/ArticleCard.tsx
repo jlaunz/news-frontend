@@ -15,7 +15,7 @@ export type ArticleCardProps = {
   articleSummary: ArticleSummary;
 };
 const ArticleCard = ({ articleSummary }: ArticleCardProps) => (
-  <Card sx={{ maxWidth: 500 }}>
+  <Card>
     <CardMedia
       component="img"
       height="140"
