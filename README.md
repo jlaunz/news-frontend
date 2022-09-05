@@ -36,6 +36,6 @@ $ yarn test
 - Using TypeScript.
 - Using EsLint.
 
-**Note**: To check the filterig functionality and more endpoints, please start the server and visit `http://localhost:8000/api`
+**Note**: To check the backend endpoints, please start the server project and visit `http://localhost:8000/api`
 
 
