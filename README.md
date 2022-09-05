@@ -17,10 +17,10 @@ $ yarn test
 ```
 
 ## Overview
-`Server Side Rendering`: Next.js is used for SSR.
-`UI Library`: Material UI is used for implementing part of the pages.
-`Testing`: A basic test is included for testing the filtering feature.
-`RichText Rendering`: A module is implemented in `util/richTextRenderer.ts` for displaying article contents.
+`Server Side Rendering`: Next.js is used for SSR.  
+`UI Library`: Material UI is used for implementing part of the pages.  
+`Testing`: A basic test is included for testing the filtering feature.  
+`RichText Rendering`: A module is implemented in `util/richTextRenderer.ts` for displaying article contents.  
 
 
 ### Implemented frontend requirements
