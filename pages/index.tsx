@@ -11,24 +11,22 @@ export type HomeProps = {
   articleSummaries: ArticleSummary[];
 };
 export default function Home({ articleSummaries }: HomeProps) {
-  const [sortedSummaries, setSortedSummaries] = useState(articleSummaries);
+  const [isSorted, setIsSorted] = useState(false);
   const [keyword, setKeyword] = useState("");
 
-  const sortSummariesByDate = () => {
-    const sortedCustomers = [...sortedSummaries].sort(
-      (s1: ArticleSummary, s2: ArticleSummary) => {
-        if (s1.date < s2.date) {
-          return -1;
-        }
-        if (s1.date > s2.date) {
-          return 1;
-        }
-        return 0;
-      },
-    );
+  const sortSummaries = (summaries: ArticleSummary[]) => [...summaries].sort((s1: ArticleSummary, s2: ArticleSummary) => {
+    if (s1.date < s2.date) {
+      return -1;
+    }
+    if (s1.date > s2.date) {
+      return 1;
+    }
+    return 0;
+  });
 
-    setSortedSummaries(sortedCustomers);
-  };
+  const sortedSummaries = isSorted
+    ? sortSummaries(articleSummaries)
+    : articleSummaries;
 
   return (
     <div>
@@ -43,14 +41,18 @@ export default function Home({ articleSummaries }: HomeProps) {
         </header>
 
         <div className={styles.control}>
-          <span>Sort by Date</span>
+          <span>
+            Sort by Date(
+            {isSorted ? "ON" : "OFF"}
+            )
+          </span>
           <Button
             size="small"
             variant="contained"
-            onClick={sortSummariesByDate}
+            onClick={() => setIsSorted(!isSorted)}
           >
             {" "}
-            Sort
+            Toggle
           </Button>
         </div>
 
