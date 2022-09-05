@@ -24,9 +24,6 @@ export default function Home({ articleSummaries }: HomeProps) {
     setSortedSummaries(sortedCustomers);
   };
 
-  useEffect(() => {
-    console.log(sortedSummaries, keyword);
-  });
 
   return (
     <div>
@@ -53,7 +50,7 @@ export default function Home({ articleSummaries }: HomeProps) {
           <TextField
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            label="Outlined"
+            label="keyword"
             variant="outlined"
           />
           <Button size="small" variant="contained">

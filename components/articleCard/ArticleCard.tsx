@@ -50,7 +50,7 @@ const ArticleCard = ({ articleSummary }: ArticleCardProps) => {
           </Button>
         </Link>
 
-        <Chip label={articleSummary.section} variant="outlined" />
+        <Chip data-testid="section-label" label={articleSummary.section} variant="outlined" />
       </CardActions>
     </Card>
   );

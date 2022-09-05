@@ -38,7 +38,6 @@ export async function getStaticPaths(id) {
   const paths = data.map((id) => {
     return { params: { id: `${id}` } };
   });
-  console.log(data, paths);
   return {
     paths,
     fallback: "blocking",
@@ -50,7 +49,6 @@ export async function getStaticProps({ params }) {
   const { data } = await axios.get(
     `http://localhost:8000/articles/${params.id}`
   );
-  console.log(data)
   return {
     props: { articleRaw: data },
   };
