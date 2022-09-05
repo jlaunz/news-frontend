@@ -12,6 +12,12 @@
     
 }
 
+@media (max-width: 480px) {
+    .article{
+        padding: 0 16px;
+    }
+  }
+
 .articleAuthorDate{
     margin-left: 0;
     margin-right: 17px;

@@ -9,15 +9,16 @@ const getParagraphTasks = (articleRaw) => {
     ...articleRaw.videos,
     ...articleRaw.html_assets,
   ];
-  const tasks = articleBody.match(expr).map((s) => ({ string: s, insertAfter: [] }));
+  const tasks = articleBody
+    .match(expr)
+    .map((s) => ({ string: s, insertAfter: [] }));
 
   insertions.forEach((insertion) => {
     const paragraphTask = tasks[insertion.position_after_paragraph];
 
     if (!paragraphTask) {
       console.warn(
-        `invalid insertion location at paragraph- ${
-          insertion.position_after_paragraph}`,
+        `invalid insertion location at paragraph- ${insertion.position_after_paragraph}`,
       );
       tasks.push({ string: "", insertAfter: [insertion] });
     } else {
@@ -47,9 +48,11 @@ const applyInsertions = (paragraphString: string, insertionList: any[]) => {
     switch (insertion.asset_type) {
       case "IMAGE": {
         const standardImg = getStandardImageURL(insertion);
-        finalString += `<img src=${standardImg.src} srcset="${getImgSrcSet(
-          standardImg.urls,
-        )}" />`;
+        finalString
+        += `<img sizes="(max-width: 480px) 480px, 1200px"
+            src=${standardImg.src} 
+            srcset="${getImgSrcSet(standardImg.urls)}" 
+        />`;
         break;
       }
 
