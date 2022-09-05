@@ -1,7 +1,8 @@
 import Head from "next/head";
+import axios from "axios";
+import React from "react";
 import processRawArticleJSON from "../../util/richtextRenderer";
 import style from "./Article.module.css";
-import axios from "axios";
 
 export type ArticleProps = {
   articleRaw: any;
@@ -29,15 +30,13 @@ export default function Article({ articleRaw }: ArticleProps) {
   );
 }
 
-export async function getStaticPaths(id) {
+export async function getStaticPaths() {
   // TO DO: Add to env variables
   const { data } = await axios.get(
-    "http://localhost:8000/ids"
+    "http://localhost:8000/ids",
   );
 
-  const paths = data.map((id) => {
-    return { params: { id: `${id}` } };
-  });
+  const paths = data.map((id) => ({ params: { id: `${id}` } }));
   return {
     paths,
     fallback: "blocking",
@@ -47,7 +46,7 @@ export async function getStaticPaths(id) {
 export async function getStaticProps({ params }) {
   // TO DO: Add to env variables
   const { data } = await axios.get(
-    `http://localhost:8000/articles/${params.id}`
+    `http://localhost:8000/articles/${params.id}`,
   );
   return {
     props: { articleRaw: data },

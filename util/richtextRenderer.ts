@@ -9,17 +9,15 @@ const getParagraphTasks = (articleRaw) => {
     ...articleRaw.videos,
     ...articleRaw.html_assets,
   ];
-  const tasks = articleBody.match(expr).map((s) => {
-    return { string: s, insertAfter: [] };
-  });
+  const tasks = articleBody.match(expr).map((s) => ({ string: s, insertAfter: [] }));
 
   insertions.forEach((insertion) => {
-    let paragraphTask = tasks[insertion.position_after_paragraph];
+    const paragraphTask = tasks[insertion.position_after_paragraph];
 
     if (!paragraphTask) {
       console.warn(
-        "invalid insertion location at paragraph- " +
-          insertion.position_after_paragraph
+        `invalid insertion location at paragraph- ${
+          insertion.position_after_paragraph}`,
       );
       tasks.push({ string: "", insertAfter: [insertion] });
     } else {
@@ -34,9 +32,8 @@ const getImgSrcSet = (urls: { [x: string]: string }) => {
   const entries = Object.entries(urls);
   const srcSet = [];
 
-  entries.forEach(([key, url], index) => {
-    const intrinsicWidth = key.split("x")[0] + "w";
-    const path = url.split("https://")[1];
+  entries.forEach(([key, url]) => {
+    const intrinsicWidth = `${key.split("x")[0]}w`;
     srcSet.push(`${url} ${intrinsicWidth}`);
   });
 
@@ -48,25 +45,26 @@ const applyInsertions = (paragraphString: string, insertionList: any[]) => {
 
   insertionList.forEach((insertion) => {
     switch (insertion.asset_type) {
-      case "IMAGE":
-
-        const standardImg = getStandardImageURL(insertion)
+      case "IMAGE": {
+        const standardImg = getStandardImageURL(insertion);
         finalString += `<img src=${standardImg.src} srcset="${getImgSrcSet(
-          standardImg.urls
+          standardImg.urls,
         )}" />`;
         break;
+      }
 
       case "HTML":
         finalString += insertion.data_content;
         break;
 
-      case "VIDEO":
-        let videoSrc = insertion.src;
+      case "VIDEO": {
+        const videoSrc = insertion.src;
         finalString += `<video src=${videoSrc} controls></video>`;
         break;
+      }
 
       default:
-        finalString += `<p> -- NOT SUPPORTED CONTENT -- </p>`;
+        finalString += "<p> -- NOT SUPPORTED CONTENT -- </p>";
     }
   });
   return finalString;
@@ -75,12 +73,10 @@ const applyInsertions = (paragraphString: string, insertionList: any[]) => {
 const processRawArticleJSON = (articleRaw) => {
   const tasks = getParagraphTasks(articleRaw);
 
-  const doneTasks = tasks.map((paragraph) => {
-    return {
-      ...paragraph,
-      finalString: applyInsertions(paragraph.string, paragraph.insertAfter),
-    };
-  });
+  const doneTasks = tasks.map((paragraph) => ({
+    ...paragraph,
+    finalString: applyInsertions(paragraph.string, paragraph.insertAfter),
+  }));
 
   return doneTasks.map((paragraph) => paragraph.finalString).join("");
 };

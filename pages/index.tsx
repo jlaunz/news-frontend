@@ -1,11 +1,11 @@
 import Head from "next/head";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Button, TextField } from "@mui/material";
 import styles from "./index.module.css";
 
 import ArticleCard from "../components/articleCard/ArticleCard";
 import { ArticleSummary } from "../model/Article";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Button, TextField } from "@mui/material";
 
 export type HomeProps = {
   articleSummaries: ArticleSummary[];
@@ -17,13 +17,17 @@ export default function Home({ articleSummaries }: HomeProps) {
   const sortSummariesByDate = () => {
     const sortedCustomers = [...sortedSummaries].sort(
       (s1: ArticleSummary, s2: ArticleSummary) => {
-        return s1.date < s2.date ? -1 : s1.date > s2.date ? 1 : 0;
-      }
+        if (s1.date < s2.date) {
+          return -1;
+        } if (s1.date > s2.date) {
+          return 1;
+        }
+        return 0;
+      },
     );
 
     setSortedSummaries(sortedCustomers);
   };
-
 
   return (
     <div>
@@ -62,16 +66,12 @@ export default function Home({ articleSummaries }: HomeProps) {
         <h2 className={styles.heading}>All articles</h2>
         <ol className={styles.articles}>
           {sortedSummaries
-            .filter((s) =>
-              s.section.toLowerCase().includes(keyword.toLowerCase())
-            )
-            .map((articleSummary) => {
-              return (
-                <li key={articleSummary.id} className={styles.article}>
-                  <ArticleCard articleSummary={articleSummary} />
-                </li>
-              );
-            })}
+            .filter((s) => s.section.toLowerCase().includes(keyword.toLowerCase()))
+            .map((articleSummary) => (
+              <li key={articleSummary.id} className={styles.article}>
+                <ArticleCard articleSummary={articleSummary} />
+              </li>
+            ))}
         </ol>
       </main>
     </div>
@@ -80,7 +80,7 @@ export default function Home({ articleSummaries }: HomeProps) {
 
 export const getStaticProps = async () => {
   const { data: summaries } = await axios.get(
-    "http://localhost:8000/summaries"
+    "http://localhost:8000/summaries",
   );
 
   return {

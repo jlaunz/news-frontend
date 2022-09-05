@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, getByText } from "@testing-library/react";
 import Home from "../pages/index";
 import "@testing-library/jest-dom";
-import { articleSummaries } from "./mocks/articleSummaries";
+import { articleSummaries } from "./mocks/articleSummaries.mock";
 import debug from "debug";
 
 describe("Home", () => {

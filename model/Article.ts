@@ -6,7 +6,6 @@ export type ArticleSummary = {
     section: string;
     images: any[];
   };
-  
 
 export type ArticleRaw = ArticleSummary & {
   body: string;
